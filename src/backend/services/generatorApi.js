@@ -16,27 +16,37 @@ function loadConfig() {
   }
 }
 
-export function generateProject(projectName, projectType) {
+export function createInitialProject(projectName) {
+  const projectDir = `${BUILD_DIR}/${projectName}/src`;
+  return createDirectory(projectDir);
+}
 
+export function installAdditionalPackages(projectType) {
   const configJSON = loadConfig();
 
-  //Create Root Project Directory
-  const projectDir = `${BUILD_DIR}/${projectName}/src`;
-  createDirectory(projectDir);
-
   const projectObject = configJSON[projectType];
-  if(!projectObject) {
+  if (!projectObject) {
     throw new Error(`Project Type [${projectType}] not supported!`);
   }
 
+  try {}
 
-  //Create Project Directories
+}
+
+export function generateProject(projectName, projectType) {
+
+
+  // Create Root Project Directory
+  const projectDir = `${BUILD_DIR}/${projectName}/src`;
+  createDirectory(projectDir);
+
+
+
+
+  // Create Project Directories
   const directories = projectObject['directories'];
   directories.forEach(directory => {
-
     const directoryPath = `${projectDir}/${directory}`;
     createDirectory(directoryPath);
-
   });
-
 }

@@ -2,7 +2,7 @@ const app = require('./app')
 
 const port = process.env.PORT;
 
-console.log("Starting Application");
+console.log('Starting Application');
 
 app.listen(port, () => {
   console.log(`Server is up on port ${port}`);

@@ -1,8 +1,13 @@
-const fs = require('browserify-fs');
+const fs = require('fs');
 
 async function createDirectory (directoryPath) {
   try {
     const result = await fs.promises.mkdir(directoryPath, { recursive: true });
+
+    if (!result) {
+      throw new Error('Failed to create directory!');
+    }
+
     return result != "" ? true : false;
 
   } catch (error) {
@@ -28,7 +33,12 @@ async function copyFile(sourcePath, destinationPath) {
   }
 }
 
+async function runCommand(command) {
+
+}
+
 module.exports = {
   createDirectory,
-  copyFile
+  copyFile,
+  runCommand,
 }
