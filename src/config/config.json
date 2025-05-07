@@ -1,0 +1,7 @@
+{
+  "node-express": {
+    "command": "npm init --y",
+    "additional-packages": ["express"],
+    "directories": ["config", "controllers", "data", "models", "routes", "services", "utils"]
+  }
+}

@@ -1,7 +1,7 @@
 import { MemoryRouter as Router, Routes, Route } from 'react-router-dom';
 import './App.css';
 
-import ProjectGenerator from './ProjectGenerator';
+import ProjectGenerator from '../components/ProjectGenerator';
 
 export default function App() {
   return (
