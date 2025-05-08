@@ -3,34 +3,48 @@ const fs = require('fs');
 const CONFIG = '../config/config.json';
 const BUILD_DIR = '../build/';
 
-const { createDirectory, copyFile, runCommand } = require('../lib/commands')
+const COMMAND_KEY = 'command';
+const ADDITIONAL_PACKAGES_KEY = 'additional-packages';
 
-function loadConfig() {
+const { createDirectory, copyFile, runCommand } = require('../lib/commands');
+
+function loadConfig(projectType) {
   const configPath = `${__dirname}/${CONFIG}`;
-  try {
-    const configData = fs.readFileSync(configPath, 'utf-8');
-    return JSON.parse(configData);
-  } catch (error) {
-    console.error('Error loading config.json:', error);
-    throw error;
+  const configData = fs.readFileSync(configPath, 'utf-8');
+  const projectObject = JSON.parse(configData)[projectType];
+
+  if (!projectObject) {
+    throw new Error(`Project Type [${projectType}] not supported!`);
   }
+
+  return projectObject;
 }
 
-export function createInitialProject(projectName) {
+export function createInitialProject(projectName, projectType) {
   const projectDir = `${BUILD_DIR}/${projectName}/src`;
-  return createDirectory(projectDir);
+  createDirectory(projectDir);
+
+  const projectObject = loadConfig(projectType);
+  const initialProjectCommand = projectObject[COMMAND_KEY];
+
+  runCommand(initialProjectCommand, projectDir);
 }
 
 export function installAdditionalPackages(projectType) {
   const configJSON = loadConfig();
 
-  const projectObject = configJSON[projectType];
+  const projectObject = loadConfig(projectType);
   if (!projectObject) {
     throw new Error(`Project Type [${projectType}] not supported!`);
   }
 
-  try {}
+  const additionalPackages = projectObject[ADDITIONAL_PACKAGES_KEY];
 
+  try {
+
+  } catch (error) {
+
+  }
 }
 
 export function generateProject(projectName, projectType) {
