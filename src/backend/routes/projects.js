@@ -1,11 +1,38 @@
 const express = require('express');
 
 const router = new express.Router();
-const { generateProject } = require('../services/generatorApi');
+const {
+  createInitialProject,
+  installAdditionalPackages,
+  createProjectDirectories,
+} = require('../services/generatorService');
 
-router.post('/generate', async (req, res) => {
+router.post('/initial-project', async (req, res) => {
   try {
-    generateProject(req.body.projectName, req.body.projectType);
+    await createInitialProject(req.body.projectName, req.body.projectType);
+
+    res.status(201).send();
+  } catch (e) {
+    res.status(400).send(e);
+  }
+});
+
+router.post('/additional-packages', async (req, res) => {
+  try {
+    const additionalPackages = await installAdditionalPackages(
+      req.body.projectName,
+      req.body.projectType,
+    );
+
+    res.status(200).send({ additionalPackages });
+  } catch (e) {
+    res.status(400).send(e);
+  }
+});
+
+router.post('/create-directories', async (req, res) => {
+  try {
+    await createProjectDirectories(req.body.projectName, req.body.projectType);
 
     res.status(201).send();
   } catch (e) {
