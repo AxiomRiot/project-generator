@@ -1,6 +1,6 @@
-const app = require('./app')
+const app = require('./app');
 
-const port = process.env.PORT;
+const port = 3000;
 
 console.log('Starting Application');
 

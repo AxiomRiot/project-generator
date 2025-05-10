@@ -1,7 +1,7 @@
 const fs = require('fs');
 
 const CONFIG = '../config/config.json';
-const BUILD_DIR = '../build/';
+const BUILD_DIR = 'C:/Users/Zack/Projects/project-generator/src/build';
 
 const COMMAND_KEY = 'command';
 const ADDITIONAL_PACKAGES_KEY = 'additional-packages';
@@ -21,8 +21,9 @@ function loadConfig(projectType) {
   return projectObject;
 }
 
-export async function createInitialProject(projectName, projectType) {
+async function createInitialProject(projectName, projectType) {
   const projectDir = `${BUILD_DIR}/${projectName}/src`;
+
   await createDirectory(projectDir);
 
   const projectObject = loadConfig(projectType);
@@ -31,7 +32,7 @@ export async function createInitialProject(projectName, projectType) {
   await runCommand(initialProjectCommand, projectDir);
 }
 
-export async function installAdditionalPackages(projectName, projectType) {
+async function installAdditionalPackages(projectName, projectType) {
   const projectDir = `${BUILD_DIR}/${projectName}/src`;
 
   const projectObject = loadConfig(projectType);
@@ -51,7 +52,7 @@ export async function installAdditionalPackages(projectName, projectType) {
   return additionalPackages;
 }
 
-export async function createProjectDirectories(projectName, projectType) {
+async function createProjectDirectories(projectName, projectType) {
   const projectDir = `${BUILD_DIR}/${projectName}/src`;
 
   const projectObject = loadConfig(projectType);
@@ -64,3 +65,9 @@ export async function createProjectDirectories(projectName, projectType) {
     }),
   );
 }
+
+module.exports = {
+  createInitialProject,
+  installAdditionalPackages,
+  createProjectDirectories,
+};

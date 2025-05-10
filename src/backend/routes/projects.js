@@ -8,6 +8,7 @@ const {
 } = require('../services/generatorService');
 
 router.post('/initial-project', async (req, res) => {
+  console.log('Received POST Request');
   try {
     await createInitialProject(req.body.projectName, req.body.projectType);
 

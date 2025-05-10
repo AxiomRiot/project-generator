@@ -1,9 +1,12 @@
 const fs = require('fs');
+const path = require('path');
+
 const { exec } = require('child_process');
 
 async function createDirectory(directoryPath) {
   try {
-    const result = await fs.promises.mkdir(directoryPath, { recursive: true });
+    const absolutePath = path.resolve(directoryPath);
+    const result = await fs.promises.mkdir(absolutePath, { recursive: true });
 
     if (!result) {
       throw new Error('Failed to create directory!');
