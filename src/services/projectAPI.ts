@@ -1,5 +1,3 @@
-import axios from 'axios';
-
 const BASE_URL = 'http://localhost:3000';
 
 async function sendPostReq(
@@ -7,16 +5,18 @@ async function sendPostReq(
   projectType: string,
   endpoint: string,
 ) {
-  try {
-    await axios.post(`${BASE_URL}/${endpoint}`, {
-      projectName,
-      projectType,
-    });
+  const url = `${BASE_URL}/${endpoint}`;
 
-    return undefined;
-  } catch (error) {
-    return error;
+  const response = await fetch(url, {
+    method: 'POST',
+    body: JSON.stringify({ projectName, projectType }),
+  });
+
+  if (response.ok) {
+    return '';
   }
+
+  return response.statusText;
 }
 
 export async function sendCreateInitialProjectReq(

@@ -20,7 +20,6 @@ body {
 }
 
 button {
-  background-color: white;
   padding: 10px 20px;
   border-radius: 10px;
   border: none;
@@ -45,16 +44,41 @@ li {
   list-style: none;
 }
 
-.Hello {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin: 20px 0;
-}
-
 .button-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 10px;
   margin: 2em auto 2em;
+}
+
+.pending {
+  background-color:#fedc2a;
+}
+
+.succeeded {
+  background-color: #09BC8A;
+}
+
+.failed {
+ background-color: #FF0035;
+}
+
+.node-basic {
+  background-color: #A76D60;
+}
+
+.node-express {
+  background-color: #40798C;
+}
+
+.python {
+  background-color: #70A9A1;
+}
+
+.react {
+  background-color: #E9D6EC;
+}
+
+.electron {
+  background-color: #94778B;
 }
