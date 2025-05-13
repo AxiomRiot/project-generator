@@ -46,6 +46,11 @@ button:hover {
   opacity: 1;
 }
 
+ul {
+  border: 1px solid rgb(159, 158, 158);
+  border-radius: 10px;
+}
+
 li {
   list-style: none;
 }
@@ -82,7 +87,7 @@ li {
 }
 
 .react {
-  background-color: #E9D6EC;
+  background-color: #1B9AAA;
 }
 
 .electron {
