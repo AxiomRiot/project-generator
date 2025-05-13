@@ -1,6 +1,6 @@
 const BASE_URL = 'http://localhost:3000';
 
-async function sendPostReq(
+export default async function sendPostReq(
   projectName: string,
   projectType: string,
   endpoint: string,
@@ -9,6 +9,9 @@ async function sendPostReq(
 
   const response = await fetch(url, {
     method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
     body: JSON.stringify({ projectName, projectType }),
   });
 
@@ -17,25 +20,4 @@ async function sendPostReq(
   }
 
   return response.statusText;
-}
-
-export async function sendCreateInitialProjectReq(
-  projectName: string,
-  projectType: string,
-) {
-  return sendPostReq(projectName, projectType, 'initial-project');
-}
-
-export async function sendInstallAdditionalPackagesReq(
-  projectName: string,
-  projectType: string,
-) {
-  return sendPostReq(projectName, projectType, 'additional-packages');
-}
-
-export async function sendCreateDirectoriesReq(
-  projectName: string,
-  projectType: string,
-) {
-  return sendPostReq(projectName, projectType, 'create-directories');
 }

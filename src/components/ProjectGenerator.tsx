@@ -1,25 +1,25 @@
-import { useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 import ProjectTypeButton from './ProjectTypeButton';
 
-import { sendCreateInitialProjectReq } from '../services/projectAPI';
+import sendPostReq from '../services/projectAPI';
 import '../styles/App.css';
 
 const API_CALLS = [
   {
+    id: 1,
     text: 'Executing Initial Project Setup',
-    endpoint: '/initial-project',
-    status: 'pending',
+    endpoint: 'initial-project',
   },
   {
+    id: 2,
     text: 'Installing Additional Packages',
-    endpoint: '/additional-packages',
-    status: 'pending',
+    endpoint: 'additional-packages',
   },
   {
+    id: 3,
     text: 'Creating Project Directories',
-    endpoint: '/create-directories',
-    status: 'pending',
+    endpoint: 'create-directories',
   },
 ];
 
@@ -32,14 +32,43 @@ const SUPPORTED_PROJECTS = [
 ];
 
 export default function ProjectGenerator() {
+  const projectNameRef = useRef<HTMLInputElement>(null);
+  const [statuses, setStatuses] = useState(
+    API_CALLS.map((api) => ({ ...api, status: 'pending' })),
+  );
 
-  const projectNameRef = useRef(null);
+  function handleSetStatuses(id: number, status: string) {
+    setStatuses((prev) =>
+      prev.map((item) => (item.id === id ? { ...item, status } : item)),
+    );
 
-  function handleProjectSelect(project: string) {
-    const projectName = projectNameRef.current.value;
+    console.log(statuses);
+  }
+
+  async function handleProjectSelect(project: string) {
+    const projectName = projectNameRef.current
+      ? projectNameRef.current.value
+      : '';
 
     if (projectName) {
-      sendCreateInitialProjectReq(projectName, project);
+      // eslint-disable-next-line no-restricted-syntax
+      for (const apiCall of API_CALLS) {
+        try {
+          const response = await sendPostReq(
+            projectName,
+            project,
+            apiCall.endpoint
+          );
+
+          if (response !== '') {
+            handleSetStatuses(apiCall.id, 'failed');
+          } else {
+            handleSetStatuses(apiCall.id, 'succeeded');
+          }
+        } catch (error) {
+          handleSetStatuses(apiCall.id, 'failed');
+        }
+      }
     }
   }
 
@@ -68,7 +97,7 @@ export default function ProjectGenerator() {
       </div>
       <div className="api-calls">
         <ul className="api-list">
-          {API_CALLS.map((call) => (
+          {statuses.map((call) => (
             <li key={call.endpoint} className={call.status}>
               <p className="api-text">
                 {call.status !== '' ? call.text : call.status}
