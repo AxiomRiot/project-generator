@@ -3,5 +3,20 @@
     "command": "npm init --y",
     "additional-packages": ["express"],
     "directories": ["config", "controllers", "data", "models", "routes", "services", "utils"]
+  },
+  "react": {
+    "command": "npx create-react-app my-app",
+    "additional-packages": [],
+    "directories": ["components"]
+  },
+  "react-vite": {
+    "command": "npm create vite@latest my-app -- --template react",
+    "additional-packages": [],
+    "directories": ["components"]
+  },
+  "electron": {
+    "command": "",
+    "additional-packages": [],
+    "directories": ["backend", "components", "config", "services", "styles"]
   }
 }
