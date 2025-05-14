@@ -8,17 +8,17 @@ import '../styles/App.css';
 const API_CALLS = [
   {
     id: 1,
-    text: 'Executing Initial Project Setup',
+    text: 'Executed Initial Project Setup',
     endpoint: 'initial-project',
   },
   {
     id: 2,
-    text: 'Installing Additional Packages',
+    text: 'Installed Additional Packages',
     endpoint: 'additional-packages',
   },
   {
     id: 3,
-    text: 'Creating Project Directories',
+    text: 'Created Project Directories',
     endpoint: 'create-directories',
   },
 ];
@@ -41,8 +41,6 @@ export default function ProjectGenerator() {
     setStatuses((prev) =>
       prev.map((item) => (item.id === id ? { ...item, status } : item)),
     );
-
-    console.log(statuses);
   }
 
   async function handleProjectSelect(project: string) {

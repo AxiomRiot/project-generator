@@ -2,19 +2,21 @@
  * @NOTE: Prepend a `~` to css file paths that are in your node_modules
  *        See https://github.com/webpack-contrib/sass-loader#imports
  */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&display=swap');
+
 body {
   position: relative;
   color: black;
   height: 100vh;
-  background: #E5DADA;
-  font-family: sans-serif;
+  background: white;
+  font-family: "Merriweather", serif;
   overflow-y: hidden;
   display: flex;
   justify-content: center;
   align-items: center;
   text-align: center;
   margin: 0 auto;
-  height: 100%;
 }
 
 button {
@@ -33,10 +35,6 @@ button {
   box-sizing: border-box;
 }
 
-h1 {
-
-}
-
 .project-name-input {
   margin: 2em auto 2em;
 }
@@ -47,12 +45,17 @@ button:hover {
 }
 
 ul {
-  border: 1px solid rgb(159, 158, 158);
-  border-radius: 10px;
+  padding: 0; /* Remove default padding from the <ul> */
+  margin: 0;
 }
 
 li {
   list-style: none;
+  box-sizing: border-box;
+  padding: 1px;
+  text-align: center;
+  margin: 10px 0;
+  border-radius: 5px;
 }
 
 .button-grid {
@@ -62,16 +65,31 @@ li {
   margin: 2em auto 2em;
 }
 
-.pending {
-  background-color:#fedc2a;
-}
-
 .succeeded {
-  background-color: #09BC8A;
+  background: linear-gradient(90deg, #0f8161, #34d399, #0f8161);
+  background-size: 300% 300%;
+  animation: gradientAnimation 8s 11 forwards;
+  color: #3A2E2E;
 }
 
 .failed {
- background-color: #FF0035;
+  background: linear-gradient(90deg, #a20f2d, #f1a9b7, #a20f2d);
+  background-size: 300% 300%;
+  animation: gradientAnimation 8s 11 forwards;
+  color: #3A2E2E;
+}
+
+/* Define the keyframes for the gradient animation */
+@keyframes gradientAnimation {
+  0% {
+    background-position: 0% 50%; /* Start position */
+  }
+  50% {
+    background-position: 100% 50%; /* Middle position */
+  }
+  100% {
+    background-position: 0% 50%; /* End position */
+  }
 }
 
 .node-basic {
